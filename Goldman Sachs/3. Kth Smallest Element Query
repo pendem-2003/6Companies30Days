@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> smallestTrimmedNumbers(vector<string>& nums, vector<vector<int>>& q1) {
+        int n = nums.size();
+        vector<pair<string,int>> v;
+        vector<pair<pair<int,int>,int>> q;
+        for (int i=0;i<n;i++){
+            v.push_back({nums[i],i});
+        }
+
+        int n1 = q1.size();
+        vector<int> ans(n1);
+        for (int i=0;i<n1;i++){
+            q.push_back({{q1[i][1],q1[i][0]},i});
+        }
+        sort(q.rbegin(),q.rend());
+        for (int i=0;i<n1;i++){
+             priority_queue<pair<string,int>> pq;
+            int x = q[i].first.first;
+            int y = q[i].first.second;
+            cout<<x<<" "<<y<<"\n";
+            for (int j=0;j<n;j++){
+                int a = v[j].first.length() - x;
+                string s = v[j].first.substr(a,x);
+                if (pq.size()<y){
+                    pq.push({s,j});
+                }
+                else {
+                    if (pq.top().first > s){
+                        pq.pop();
+                        pq.push({s,j});
+                    }
+                }
+            }
+            int c = pq.top().second;
+            ans[q[i].second] = c;
+        }
+        return ans;
+    }
+};
