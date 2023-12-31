@@ -1,6 +1,37 @@
 class Solution {
 public:
-    int minimizeSet(int divisor1, int divisor2, int uniqueCnt1, int uniqueCnt2) 
-
+int check(long long mid, int d1, int d2, long long lcm, int u1, int u2){
+    long long rem = mid/lcm;
+    long long x1 = mid/d2;
+    x1 -= rem;
+    long long x2 = mid/d1;
+    x2 -= rem;
+    if (x1>=u1){
+        if (x2>=u2 || (mid-rem-x1)>=u2)return 1;
+        else return 0;
+    }
+    else if (x2>=u2){
+        if (x1>=u1 || (mid-rem-x2)>=u1)return 1;
+        else return 0;
+    }
+    else {
+        if ((mid-rem)>=(u1+u2))return 1;
+        else return 0;
+    }
+}
+    int minimizeSet(int d1, int d2, int u1, int u2) {
+        long long lcm = (1LL*d1*d2)/(__gcd(d1,d2));
+        long long l = 1, r = 1e15;
+        long long ans = 0;
+        while (l<=r){
+            long long mid = l + (r-l)/2;
+            //cout<<l<<" "<<r<<"\n";
+            if (check(mid,d1,d2,lcm,u1,u2)){
+                ans = mid;
+                r = mid - 1;
+            }
+            else l = mid + 1;
+        }
+        return ans;
     }
 };
