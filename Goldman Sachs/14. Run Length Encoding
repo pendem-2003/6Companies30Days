@@ -1,0 +1,16 @@
+string encode(string arc)
+{     
+    int n = arc.length();
+    string ans;
+    int id = 0;
+    while (id<n){
+        int x = id;
+        int cnt = 0;
+        while (x<n && arc[x]==arc[id])x++,cnt++;
+        ans += arc[id];
+        ans += to_string(cnt);
+        id = x;
+    }
+    return ans;
+}     
+ 
