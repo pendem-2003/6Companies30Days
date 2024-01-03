@@ -1,0 +1,32 @@
+class Solution{   
+public:
+    string printMinNumberForPattern(string s){
+        int n = s.size();
+        string ans;
+        int x = 1;
+        int id = 0;
+        int f = 0;
+        while (id<n){
+            int y = id;
+            while (y<n && s[y]==s[id])y++;
+            int last = x + (y-id) - 1;
+            if (s[id]=='I'){
+                if (id != 0)last--;
+                for (int i=x;i<=last;i++){
+                    ans += '0' + i;
+                }
+            }
+            else {
+                f = 1;
+                last++;
+                for (int i=last;i>=x;i--){
+                    ans += '0' + i;
+                }
+            }
+            id = y;
+            x = last + 1;
+        }
+        if (s[n-1]=='I')ans += '0' + x;
+        return ans;
+    }
+};
