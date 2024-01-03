@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int mod = 1e9+7;
+    int inv(long long a, long long b){
+        int ans = 1;
+        while (b){
+            if (b%2==1)ans = (ans*a)%mod;
+            a = (a*a)%mod;
+            b /= 2;
+        }
+        return ans;
+    }
+    int numberOfWays(int startPos, int endPos, int k) {
+        int x = endPos - startPos;
+        if (x<0)x *= -1;
+        k -= x;
+        if (k<0 || k%2==1)return 0;
+        x += k/2;
+        int y = k/2;
+        long long a=1,b=1,c=1;
+        for (int i=1;i<=x+y;i++){
+            a = (a*i)%mod;
+            if (i<=x)b = (b*i)%mod;
+            if (i<=y)c = (c*i)%mod;
+        }
+        a = (a*inv(b,mod-2))%mod;
+        a = (a*inv(c,mod-2))%mod;
+        return a;}
+};
