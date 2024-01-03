@@ -1,0 +1,17 @@
+class Solution{
+public:
+    vector<int> findTwoElement(vector<int> arr, int n) {
+        long long sum1 = 0, sum2 = 0;
+        for (auto it : arr){
+            sum1 += it;
+            sum2 += 1LL*it*it;
+        }
+        sum1 -= (1LL*(n)*(n+1))/2;
+        sum2 -= (1LL*(n)*(n+1)*(2*n+1))/6;
+        long long dif1 = sum1;
+        long long dif2 = sum2/sum1;
+        long long a = (dif1+dif2)/2;
+        long long b = dif2 - a;
+        return {a,b};
+    }
+};
