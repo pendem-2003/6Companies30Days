@@ -1,0 +1,17 @@
+class DataStream {
+public:
+    int v,k;
+    int cnt = 0;
+    DataStream(int value, int k1) {
+        cnt = 0;
+        v = value;
+        k = k1;
+    }
+    
+    bool consec(int num) {
+        if (num==v)cnt++;
+        else cnt = 0;
+        if (cnt>=k)return true;
+        else return false;
+    }
+};
