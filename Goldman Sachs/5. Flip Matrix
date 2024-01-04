@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int x=1,y=1;
+    int cnt;
+    map<int,int> mp;
+    Solution(int m, int n) {
+        x = m;
+        y = n;
+        cnt = x*y;
+    }
+    
+    vector<int> flip() {
+        int a = rand()%cnt;
+        cout<<a<<"\n";
+        cnt--;
+        if (mp.find(a)==mp.end()){
+            if (mp.find(cnt) != mp.end())mp[a] = mp[cnt];
+            else mp[a] = cnt;
+            return {a/y,a%y};
+        }
+        else {
+            int ans = mp[a];
+            if (mp.find(cnt) != mp.end())mp[a] = mp[cnt];
+            else mp[a] = cnt;
+            return {ans/y,ans%y};
+        }
+    }
+    
+    void reset() {
+        mp.clear();
+        cnt = x*y;
+    }
+};
