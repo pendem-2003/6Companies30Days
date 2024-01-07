@@ -1,0 +1,37 @@
+class Solution {
+public:
+    long long minimumCost(string source, string target, vector<char>& original, vector<char>& changed, vector<int>& cost) {
+        int n1 = cost.size();
+        long long arr[26][26];
+        for (int i=0;i<26;i++){
+            for (int j=0;j<26;j++){
+                arr[i][j] = 1e12;
+            }
+        }
+        long long ans = 0;
+        for (int i=0;i<n1;i++){
+            int x = original[i] - 'a';
+            int y = changed[i] - 'a';
+            if (arr[x][y]==1e12)arr[x][y] = cost[i];
+            else arr[x][y] = min(arr[x][y],1LL*cost[i]);
+        }
+        for (int i=0;i<26;i++)arr[i][i] = 0;
+        for (int k=0;k<26;k++){
+            for (int i=0;i<26;i++){
+                for (int j=0;j<26;j++){
+                    if (arr[i][j] > arr[i][k] + arr[k][j]){
+                        arr[i][j] = arr[i][k] + arr[k][j];
+                    }
+                }
+            }
+        }
+        int n = source.size();
+        for (int i=0;i<n;i++){
+            int x = source[i] - 'a';
+            int y = target[i] - 'a';
+            ans += arr[x][y];
+        }
+        if (ans>=1e12)ans = -1;
+        return ans;
+    }
+};
