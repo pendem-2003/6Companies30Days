@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int maxi(vector<int> v){
+        vector<int> ans;
+        int n = v.size();
+        ans.push_back(v[0]);
+        for (int i=1;i<n;i++){
+            if (ans.back()<v[i])ans.push_back(v[i]);
+            else {
+                int x = lower_bound(ans.begin(),ans.end(),v[i]) - ans.begin();
+                ans[x] = v[i];
+            }
+        }
+        return ans.size();
+    }
+    int maxEnvelopes(vector<vector<int>>& en) {
+        int n = en.size();
+        sort(en.begin(),en.end());
+        int last = 0;
+        int id = 0;
+        vector<int> arr;
+        while (id<n){
+            vector<int> v;
+            int x = id;
+            while (x<n && en[x][0]==en[id][0]){
+                v.push_back(en[x][1]);
+                x++;
+            }
+            reverse(v.begin(),v.end());
+            for(auto it : v)arr.push_back(it);
+            id = x;
+        }
+        return maxi(arr);
+    }
+};
