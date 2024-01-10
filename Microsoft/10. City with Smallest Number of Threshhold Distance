@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int findTheCity(int n, vector<vector<int>>& edges, int dist) {
+        int arr[n][n];
+        for (int i=0;i<n;i++){
+            for (int j=0;j<n;j++){
+                arr[i][j] = 1e9;
+                if (i==j)arr[i][j] = 0;
+            }
+        }
+        for (auto it : edges){
+            arr[it[0]][it[1]] = min(arr[it[0]][it[1]],it[2]);
+            arr[it[1]][it[0]] = min(arr[it[1]][it[0]],it[2]);
+        }
+        for (int k=0;k<n;k++){
+            for (int i=0;i<n;i++){
+                for (int j=0;j<n;j++){
+                    arr[i][j] = min(arr[i][j],arr[i][k]+arr[k][j]);
+                }
+            }
+        }
+        int mini = n, ans = 0;
+        for (int i=0;i<n;i++){
+            int cnt = 0;
+            for (int j=0;j<n;j++){
+                if (arr[i][j]<=dist)cnt++;
+            }
+            if (cnt<=mini){
+                mini = cnt;
+                ans = i;
+            }
+        }
+        return ans;
+    }
+};
