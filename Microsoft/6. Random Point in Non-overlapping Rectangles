@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> v;
+    vector<vector<int>> r;
+    Solution(vector<vector<int>>& rects) {
+        r = rects;
+        v.push_back(0);
+        for (auto it : rects){
+            int area = (it[2]-it[0]+1)*(it[3]-it[1]+1);
+            area += v.back();
+            v.push_back(area);
+        }
+    }
+    
+    vector<int> pick() {
+        int val = rand()%v.back();
+        int id = upper_bound(v.begin(),v.end(),val) - v.begin();
+        id--; 
+        int x = (rand()%(r[id][2]-r[id][0]+1)) + r[id][0];
+        int y = (rand()%(r[id][3]-r[id][1]+1)) + r[id][1];
+        return {x,y};
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution* obj = new Solution(rects);
+ * vector<int> param_1 = obj->pick();
+ */
