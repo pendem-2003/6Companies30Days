@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+        int n = nums.size();
+        sort(nums.begin(),nums.end());
+        int mid = (nums[(n/2)] + nums[(n-1)/2])/2;
+        int id = 1, last = n - 1;
+        vector<int> ans(n,-1);
+        while (id<n && last>=0 && nums[last]>mid){
+            ans[id] = nums[last];
+            last--;
+            id += 2;
+        }
+        id = ((n-1)/2)*2;
+        last = 0;
+        while (id>=0 && last<n && nums[last]<mid){
+            ans[id] = nums[last];
+            last++;
+            id -= 2;
+        }
+        for (int i=0;i<n;i++){
+            if (ans[i]==-1)ans[i] = mid;
+        }
+        nums = ans;
+    }
+};
