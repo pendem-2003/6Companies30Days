@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool isValidSerialization(string s) {
+        s += ',';
+        int n = s.length();
+        int rem = 1;
+        for (int i=0;i<n;i++){
+            if (s[i] != ',')continue;
+            rem--;
+            if (rem<0)return false;
+            if (s[i-1] != '#')rem += 2;
+        }
+        if (rem==0)return true;
+        else return false;
+    }
+};
