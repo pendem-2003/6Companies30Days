@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int n;
+    string s;
+    int dp[310];
+    map<string,int> mp;
+    int rec(int id){
+        //cout<<id<<"\n";
+        if (id>=n)return 1;
+        if (dp[id] != -1)return dp[id];
+        int ans = 0;
+        string temp;
+        for (int j=id;j<min(n,id+21);j++){
+            temp += s[j];
+            if (mp[temp]>=1){
+                ans |= rec(j+1);
+            }
+        }
+        //cout<<id<<" "<<temp<<"\n";
+        return dp[id] = ans;
+    }
+    bool wordBreak(string s1, vector<string>& wordDict) {
+        for (auto it :wordDict)mp[it]++;
+        s = s1;
+        n = s.length();
+        for (int i=0;i<=n+3;i++)dp[i] = -1;
+        return rec(0);
+    }
+};
