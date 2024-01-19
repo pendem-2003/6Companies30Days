@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minimumLengthEncoding(vector<string>& words) {
+        int ans = 0;
+        int last = 0;
+        int n = words.size();
+        for (int i=0;i<n;i++)reverse(words[i].begin(),words[i].end());
+        sort(words.begin(),words.end());
+        for (int i=0;i<n-1;i++){
+            int len1 = words[i+1].length();
+            int len2 = words[i].length();
+            int a = 0, b = 0;
+            while (a<len1 && b<len2 && words[i+1][a]==words[i][b]){
+                a++;
+                b++;
+            }
+            if (b != len2)ans += words[i].length() + 1;
+        }
+        ans += words[n-1].length() + 1;
+        return ans;
+    }
+};
