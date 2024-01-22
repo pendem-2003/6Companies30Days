@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int maxNumberOfFamilies(int n, vector<vector<int>>& r) {
+        int ans = 0;
+        sort(r.begin(),r.end());
+        int st = 1;
+        int id = 0;
+        int n1 = r.size();
+        while (id<n1){
+            vector<int> v(11,0);
+            if (r[id][0] != st){
+                ans += 2*(r[id][0]-st);
+                st = r[id][0];
+                continue;
+            }
+            while (id<n1 && r[id][0]==st){
+                v[r[id][1]]++;
+                id++;
+            }
+            int cnt = 0;
+            if (v[2]==0 && v[3]==0 && v[4]==0 && v[5]==0)cnt++;
+            if (v[7]==0 && v[6]==0 && v[4]==0 && v[5]==0)cnt++;
+            if (v[7]==0 && v[6]==0 && v[8]==0 && v[9]==0)cnt++;
+            if (cnt>=2)cnt--;
+            if (cnt>=0)ans += cnt;
+            st++;
+        }
+        ans += (n-st+1)*2;
+        return ans;
+    }
+};
