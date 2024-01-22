@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int check(string a, string b){
+        int l = 0, r = 0;
+        while (l<a.size() && r<b.size()){
+            if (a[l]==b[r]){
+                l++;
+            }
+            r++;
+        }
+        if (l==a.size())return 1;
+        else return 0;
+    }
+    string findLongestWord(string s, vector<string>& d) {
+        string ans;
+        for (auto it : d){
+            int f = check(it,s);
+            if (f==1){
+                if (it.length()>ans.length()){
+                    ans = it;
+                }
+                else if (it.length()==ans.length()){
+                    ans = min(ans,it);
+                }
+            }
+        }
+        return ans;
+    }
+};
