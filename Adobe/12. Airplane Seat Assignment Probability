@@ -1,0 +1,11 @@
+class Solution {
+public:
+    double nthPersonGetsNthSeat(int n) {
+        //ans for n is no.ofways/total ways
+        //no of ways is 2 power(n-2)
+        //total ways is 2 power(n-1)
+        double ans =  1.0/2;
+        if (n==1)return 1;
+        else return ans;
+    }
+};
